@@ -13,7 +13,6 @@ public class Library {
         studentbooks2 = new student[studentsnum];
         System.out.print("please enter your name : ");
         username = Scan.nextLine().toLowerCase();
-        System.out.println();
     }
     public static void insertnum() {
         @SuppressWarnings("resource")
