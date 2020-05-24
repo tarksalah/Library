@@ -8,6 +8,7 @@ public class Library {
     private static student[] studentbooks2;
     Library(int booksnum, int studentsnum) {
         @SuppressWarnings("resource")
+        int x=0;
         Scanner Scan = new Scanner(System.in);
         books = new book[booksnum];
         studentbooks2 = new student[studentsnum];
