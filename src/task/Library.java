@@ -15,6 +15,7 @@ public class Library {
         System.out.print("please enter your name : ");
         username = Scan.nextLine().toLowerCase();
         System.out.println();
+        System.out.println();
     }
     public static void insertnum() {
         @SuppressWarnings("resource")
