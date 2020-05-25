@@ -433,11 +433,13 @@ public class Library {
 	}
 
 	public static void deleteuser() {
-		@SuppressWarnings("resource")
 		Scanner Scan = new Scanner(System.in);
-		System.out.print("before deleting user people in library are : ");
+		System.out.print("before deleting user, students in library are : ");
 		for (int key = 0; key < studentbooks2.length; key++) {
-			System.out.print(studentbooks2[key].getname() + ",");
+			if (studentbooks2[key]==null) {
+				break;
+			}
+			System.out.print(studentbooks2[key].getname() + ".");
 		}
 		System.out.println();
 		System.out.print("enter name of the person you want to delete : ");
@@ -448,12 +450,15 @@ public class Library {
 			}
 			if (studentbooks2[i].getname().equalsIgnoreCase(name)) {
 				studentbooks2[i] = null;
-				System.out.println("after deleting user");
+				System.out.print("after deleting that user : ");
 				if (studentbooks2[0] == null) {
 					System.out.println("no one has borrowed books in library now");
 				}
 				for (int key = 0; key < studentbooks2.length; key++) {
-					System.out.print(studentbooks2[key].getname() + ",");
+					if (studentbooks2[key]==null) {
+						break;
+					}
+					System.out.print(studentbooks2[key].getname() + ".");
 				}
 				return;
 			}
@@ -482,6 +487,7 @@ public class Library {
 		while (x) {
 			System.out.println(
 					"do you want to do another thing ? Answer with yes if you want or anything else to close program");
+			Scan.nextLine();
 			String choose = Scan.nextLine();
 			if (choose.equalsIgnoreCase("yes")) {
 				Library library2 = new Library(y, z);
