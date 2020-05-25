@@ -19,7 +19,7 @@ public class Library {
 		System.out.println();
 	}
 
-	public static void insertnum() {
+	public static void insertnum(int num, int num2) {
 		@SuppressWarnings("resource")
 		Scanner Scan = new Scanner(System.in);
 		System.out.println("Welcome Mr " + username);
@@ -38,38 +38,34 @@ public class Library {
 		System.out.println("12 to see the list once more");
 		System.out.println("-1 to exit the program");
 		int x = Scan.nextInt();
-		try {
-			if (x == 1) {
-				checkname(username);
-			} else if (x == 2) {
-				searchname();
-			} else if (x == 3) {
-				searchdate();
-			} else if (x == 4) {
-				bookcopies();
-			} else if (x == 5) {
-				Insertion();
-			} else if (x == 6) {
-				borrowbook();
-			} else if (x == 7) {
-				AuthorSearch();
-			} else if (x == 8) {
-				backbook();
-			} else if (x == 9) {
-				deletebookcopy();
-			} else if (x == 10) {
-				booksborrowed();
-			} else if (x == 11) {
-				deleteuser();
-			} else if (x == 12) {
-				insertnum();
-			} else if (x == -1) {
-				return;
-			} else {
-				System.out.println("invalid number");
-			}
-		} catch (Exception e) {
-			System.out.println(e);
+		if (x == 1) {
+			checkname(username, num);
+		} else if (x == 2) {
+			searchname();
+		} else if (x == 3) {
+			searchdate();
+		} else if (x == 4) {
+			bookcopies();
+		} else if (x == 5) {
+			Insertion();
+		} else if (x == 6) {
+			borrowbook(num);
+		} else if (x == 7) {
+			AuthorSearch();
+		} else if (x == 8) {
+			backbook();
+		} else if (x == 9) {
+			deletebookcopy();
+		} else if (x == 10) {
+			booksborrowed();
+		} else if (x == 11) {
+			deleteuser();
+		} else if (x == 12) {
+			insertnum(num, num2);
+		} else if (x == -1) {
+			return;
+		} else {
+			System.out.println("invalid number");
 		}
 	}
 
@@ -86,7 +82,7 @@ public class Library {
 		return false;
 	}
 
-	public static void checkname(String username) {
+	public static void checkname(String username, int booksnum) {
 		for (int i = 0; i < studentbooks2.length; i++) {
 			if (studentbooks2[i] == null) {
 				break;
@@ -99,14 +95,14 @@ public class Library {
 		}
 		for (int i = 0; i < studentbooks2.length; i++) {
 			if (studentbooks2[i] == null) {
-				book[] books = new book[100];
+				book[] books = new book[booksnum];
 				student Student = new student(username, books);
 				studentbooks2[i] = Student;
 				System.out.println("done Mr " + username + " you are now a member in the library");
 				return;
 			}
 		}
-		System.out.println("library is full now");
+		System.out.println("library is full now null in another time");
 	}
 
 	public static void searchname() {
@@ -160,7 +156,7 @@ public class Library {
 				return;
 			}
 		}
-		System.out.println("no books with that name please try again");
+		System.out.println("no books with that name please null again");
 	}
 
 	public static void Insertion() {
@@ -176,45 +172,41 @@ public class Library {
 			System.out.println(i + 1 + " -" + " " + books[i].getbook() + " ");
 		}
 		System.out.println();
-		try {
-			System.out.print("name of the book : ");
-			bookname = Scan.nextLine();
-			System.out.println();
-			System.out.println("name of the author is : ");
-			authorname = Scan.nextLine();
-			System.out.println();
-			System.out.print("date of relase for the book : ");
-			dateofrelase = Scan.nextLine();
-			System.out.println();
-			System.out.print("number of copies you want to insert of this edition : ");
-			int x = Scan.nextInt();
-			book books2 = new book(bookname, dateofrelase, x, authorname);
-			for (int i = 0; i < books.length; i++) {
-				if (books[i] == null) {
-					books[i] = books2;
-					break;
-				}
-				if (books[i] == books2) {
-					System.out.println("this book is in the library");
-					return;
-				}
+		System.out.print("name of the book : ");
+		bookname = Scan.nextLine();
+		System.out.println();
+		System.out.println("name of the author is : ");
+		authorname = Scan.nextLine();
+		System.out.println();
+		System.out.print("date of relase for the book : ");
+		dateofrelase = Scan.nextLine();
+		System.out.println();
+		System.out.print("number of copies you want to insert of this edition : ");
+		int x = Scan.nextInt();
+		book books2 = new book(bookname, dateofrelase, x, authorname);
+		for (int i = 0; i < books.length; i++) {
+			if (books[i] == null) {
+				books[i] = books2;
+				break;
 			}
-			System.out.print("after insertion library contains : ");
-			for (int i = 0; i < books.length; i++) {
-				if (books[i] == null) {
-					break;
-				}
-				System.out.println(i + 1 + " -" + " " + books[i].getbook() + " ");
+			if (books[i] == books2) {
+				System.out.println("this book is in the library");
+				return;
 			}
-			System.out.println();
-			System.out.println("done added");
-		} catch (Exception e) {
-			System.out.println("invalid input");
 		}
+		System.out.print("after insertion library contains : ");
+		for (int i = 0; i < books.length; i++) {
+			if (books[i] == null) {
+				break;
+			}
+			System.out.println(i + 1 + " -" + " " + books[i].getbook() + " ");
+		}
+		System.out.println();
+		System.out.println("done added");
 	}
 
 	@SuppressWarnings("static-access")
-	public static void borrowbook() {
+	public static void borrowbook(int booksnum) {
 		Scanner Scan = new Scanner(System.in);
 		boolean ifit = check(username);
 		if (ifit == false) {
@@ -225,70 +217,66 @@ public class Library {
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println("date of borrowing is " + dtf.format(now));
 		System.out.print("enter book's name : ");
-		try {
-			String lol = Scan.nextLine();
-			System.out.println();
-			for (int i = 0; i < books.length; i++) {
-				if (books[i] == null) {
-					break;
-				}
-				String lol2 = books[i].getname();
-				if (lol.equalsIgnoreCase(lol2)) {
-					System.out.println("enter authors name : ");
-					String x = Scan.nextLine();
-					String h = books[i].getAuthor();
-					if (h.equalsIgnoreCase(x)) {
-						System.out.println("enter date of the book : ");
-						String date = Scan.nextLine();
-						String datename = books[i].getdate();
-						if (datename.equalsIgnoreCase(date)) {
-							System.out.print("before borrowing : ");
-							for (int j = 0; j < books.length; j++) {
-								if (books[j] != null) {
-									System.out.print(books[j].getbook());
-								}
+		String lol = Scan.nextLine();
+		System.out.println();
+		for (int i = 0; i < books.length; i++) {
+			if (books[i] == null) {
+				break;
+			}
+			String lol2 = books[i].getname();
+			if (lol.equalsIgnoreCase(lol2)) {
+				System.out.println("enter authors name : ");
+				String x = Scan.nextLine();
+				String h = books[i].getAuthor();
+				if (h.equalsIgnoreCase(x)) {
+					System.out.println("enter date of the book : ");
+					String date = Scan.nextLine();
+					String datename = books[i].getdate();
+					if (datename.equalsIgnoreCase(date)) {
+						System.out.print("before borrowing : ");
+						for (int j = 0; j < books.length; j++) {
+							if (books[j] != null) {
+								System.out.print(books[j].getbook());
 							}
-							System.out.println();
-							System.out.println("borrow is done");
-							books[i].setcopies(1);
-							if (books[i].getcopies() == 0) {
-								books[i] = null;
-							}
-							System.out.print("after borrowing : ");
-							for (int j = 0; j < books.length; j++) {
-								if (books[j] != null) {
-									System.out.print(books[j].getbook());
-								}
-							}
-							for (int j = 0; j < studentbooks2.length; j++) {
-								String name = studentbooks2[j].getname();
-								if (studentbooks2[j] != null) {
-									if (name.equalsIgnoreCase(username)) {
-										book Book = new book(lol, date, books[i].getcopies(), x);
-										studentbooks2[j].setstudentbooks(Book);
-									}
-								}
-								if (studentbooks2[99] != null) {
-									System.out.println("you can't take more than 100 book");
-									break;
-								}
-							}
-							System.out.println();
-							LocalDateTime now2 = LocalDateTime.now();
-							String h2 = now2.toString();
-							String hh2 = h2.substring(8, 10);
-							int ii2 = Integer.parseInt(hh2);
-							ii2 = ii2 + 14;
-							String hsa = Integer.toString(ii2);
-							String last = h2.substring(0, 8) + hsa + " " + h2.substring(11, 19);
-							System.out.println("last date to back the book is " + last);
-							return;
 						}
+						System.out.println();
+						System.out.println("borrow is done");
+						books[i].setcopies(1);
+						if (books[i].getcopies() == 0) {
+							books[i] = null;
+						}
+						System.out.print("after borrowing : ");
+						for (int j = 0; j < books.length; j++) {
+							if (books[j] != null) {
+								System.out.print(books[j].getbook());
+							}
+						}
+						for (int j = 0; j < studentbooks2.length; j++) {
+							String name = studentbooks2[j].getname();
+							if (studentbooks2[j] != null) {
+								if (name.equalsIgnoreCase(username)) {
+									book Book = new book(lol, date, books[i].getcopies(), x);
+									studentbooks2[j].setstudentbooks(Book);
+								}
+							}
+							if (studentbooks2[i].getbooks()[booksnum] != null) {
+								System.out.println("you can't take more than " + booksnum + " book");
+								break;
+							}
+						}
+						System.out.println();
+						LocalDateTime now2 = LocalDateTime.now();
+						String h2 = now2.toString();
+						String hh2 = h2.substring(8, 10);
+						int ii2 = Integer.parseInt(hh2);
+						ii2 = ii2 + 14;
+						String hsa = Integer.toString(ii2);
+						String last = h2.substring(0, 8) + hsa + " " + h2.substring(11, 19);
+						System.out.println("last date to back the book is " + last);
+						return;
 					}
 				}
 			}
-		} catch (Exception e) {
-			System.out.println(e);
 		}
 		System.out.println("no books with this name,Author or date");
 	}
@@ -297,24 +285,20 @@ public class Library {
 		@SuppressWarnings("resource")
 		Scanner Scan = new Scanner(System.in);
 		int z = 0;
-		try {
-			System.out.print("enter name of the author : ");
-			String nameAuth = Scan.nextLine();
-			for (int i = 0; i < books.length; i++) {
-				if (books[i] == null) {
-					break;
-				}
-				String h = books[i].getAuthor();
-				if (h.equalsIgnoreCase(nameAuth)) {
-					z++;
-					System.out.println(i + 1 + "-" + books[i].getbook());
-				}
+		System.out.print("enter name of the author : ");
+		String nameAuth = Scan.nextLine();
+		for (int i = 0; i < books.length; i++) {
+			if (books[i] == null) {
+				break;
 			}
-			if (z == 0) {
-				System.out.println("no authors with that name");
+			String h = books[i].getAuthor();
+			if (h.equalsIgnoreCase(nameAuth)) {
+				z++;
+				System.out.println(i + 1 + "-" + books[i].getbook());
 			}
-		} catch (Exception e) {
-			System.out.println("invalid input");
+		}
+		if (z == 0) {
+			System.out.println("no authors with that name");
 		}
 	}
 
@@ -326,137 +310,125 @@ public class Library {
 			System.out.println("you should check in first");
 			return;
 		}
-		try {
-			System.out.print("Enter book's name that you have borrowed : ");
-			String namebook = Scan.nextLine();
-			System.out.println();
-			for (int i = 0; i < books.length; i++) {
-				if (books[i] == null) {
-					break;
-				}
-				String name = books[i].getname();
-				if (name.equalsIgnoreCase(namebook)) {
-					System.out.print("book before back yours : ");
-					System.out.println(books[i].getbook());
-					for (int j = 0; j < studentbooks2.length; j++) {
-						if (studentbooks2[j] == null) {
-							break;
-						}
-						if (studentbooks2[j].getname().equalsIgnoreCase(username)) {
-							for (int k = 0; k < studentbooks2[j].getbooks().length; k++) {
-								if (studentbooks2[k].getbooks()[k] == books[i]) {
-									studentbooks2[k].getbooks()[k] = null;
-									break;
-								}
+		System.out.print("Enter book's name that you have borrowed : ");
+		String namebook = Scan.nextLine();
+		System.out.println();
+		for (int i = 0; i < books.length; i++) {
+			if (books[i] == null) {
+				break;
+			}
+			String name = books[i].getname();
+			if (name.equalsIgnoreCase(namebook)) {
+				System.out.print("book before back yours : ");
+				System.out.println(books[i].getbook());
+				for (int j = 0; j < studentbooks2.length; j++) {
+					if (studentbooks2[j] == null) {
+						break;
+					}
+					if (studentbooks2[j].getname().equalsIgnoreCase(username)) {
+						for (int k = 0; k < studentbooks2[j].getbooks().length; k++) {
+							if (studentbooks2[k].getbooks()[k] == books[i]) {
+								studentbooks2[k].getbooks()[k] = null;
+								break;
 							}
 						}
 					}
-					System.out.print("book after adding your copy : ");
-					books[i].setcopies2(1);
-					System.out.println(books[i].getbook());
-					return;
 				}
+				System.out.print("book after adding your copy : ");
+				books[i].setcopies2(1);
+				System.out.println(books[i].getbook());
+				return;
 			}
-			System.out.println("no another copies of that book");
-			for (int i = 0; i < studentbooks2.length; i++) {
-				if (studentbooks2[i] == null) {
-					break;
-				}
-				if (studentbooks2[i].getname().equalsIgnoreCase(username)) {
-					for (int j = 0; j < studentbooks2[i].getbooks().length; j++) {
-						if (studentbooks2[j] == null) {
-							break;
-						}
-						String name = studentbooks2[i].getbooks()[j].getname();
-						if (name.equalsIgnoreCase(namebook)) {
-							System.out.print("Enter date of the book that you have borrowed : ");
-							String bookdate = Scan.nextLine();
-							System.out.println();
-							System.out.print("number of copies : ");
-							int x = Scan.nextInt();
-							System.out.println();
-							System.out.println("name of author");
-							String name2 = Scan.nextLine();
-							book book2 = new book(namebook, bookdate, x, name2);
-							for (int k = 0; k < books.length; k++) {
-								if (books[k] == null) {
-									books[k] = book2;
+		}
+		System.out.println("no another copies of that book");
+		for (int i = 0; i < studentbooks2.length; i++) {
+			if (studentbooks2[i] == null) {
+				break;
+			}
+			if (studentbooks2[i].getname().equalsIgnoreCase(username)) {
+				for (int j = 0; j < studentbooks2[i].getbooks().length; j++) {
+					if (studentbooks2[j] == null) {
+						break;
+					}
+					String name = studentbooks2[i].getbooks()[j].getname();
+					if (name.equalsIgnoreCase(namebook)) {
+						System.out.print("Enter date of the book that you have borrowed : ");
+						String bookdate = Scan.nextLine();
+						System.out.println();
+						System.out.print("number of copies : ");
+						int x = Scan.nextInt();
+						System.out.println();
+						System.out.println("name of author");
+						String name2 = Scan.nextLine();
+						book book2 = new book(namebook, bookdate, x, name2);
+						for (int k = 0; k < books.length; k++) {
+							if (books[k] == null) {
+								books[k] = book2;
 								break;
-								}
 							}
-							System.out.print("books after adding the new one are : ");
-							for (int k = 0; k < books.length; k++) {
-								if (books[k] == null) {
-									break;
-								}
-								System.out.println(k + 1 + "-" + books[k].getbook());
+						}
+						System.out.print("books after adding the new one are : ");
+						for (int k = 0; k < books.length; k++) {
+							if (books[k] == null) {
+								break;
 							}
-							for (int k = 0; k < studentbooks2.length; k++) {
-								if (studentbooks2[k].getname().equalsIgnoreCase(username)) {
-									for (int l = 0; l < studentbooks2[k].getbooks().length; l++) {
-										if (studentbooks2[l].getbooks()[l] == book2) {
-											studentbooks2[l].getbooks()[l] = null;
-										}
+							System.out.println(k + 1 + "-" + books[k].getbook());
+						}
+						for (int k = 0; k < studentbooks2.length; k++) {
+							if (studentbooks2[k].getname().equalsIgnoreCase(username)) {
+								for (int l = 0; l < studentbooks2[k].getbooks().length; l++) {
+									if (studentbooks2[l].getbooks()[l] == book2) {
+										studentbooks2[l].getbooks()[l] = null;
 									}
 								}
 							}
-						} else
-							System.out.println("you dont have a book with that name");
-					}
+						}
+					} else
+						System.out.println("you dont have a book with that name");
 				}
 			}
-		} catch (Exception e) {
-			System.out.println("invalid input");
 		}
 	}
 
 	public static void deletebookcopy() {
 		@SuppressWarnings("resource")
 		Scanner Scan = new Scanner(System.in);
-		try {
-			System.out.println("enter name of book that you want to delete it's copy : ");
-			String x = Scan.nextLine();
-			for (int i = 0; i < books.length; i++) {
-				if (books[i] == null) {
-					break;
-				}
-				String h = books[i].getname();
-				if (h.equalsIgnoreCase(x)) {
-					System.out.println("enter num of copies that you want to delete");
-					int hh = Scan.nextInt();
-					books[i].setcopies(hh);
-				}
+		System.out.println("enter name of book that you want to delete it's copy : ");
+		String x = Scan.nextLine();
+		for (int i = 0; i < books.length; i++) {
+			if (books[i] == null) {
+				break;
 			}
-		} catch (Exception e) {
-			System.out.println("invalid input");
+			String h = books[i].getname();
+			if (h.equalsIgnoreCase(x)) {
+				System.out.println("enter num of copies that you want to delete");
+				int hh = Scan.nextInt();
+				books[i].setcopies(hh);
+			}
 		}
-		System.out.println("no books with that name please try again");
+		System.out.println("no books with that name please null again");
 	}
 
 	@SuppressWarnings("static-access")
 	public static void booksborrowed() {
 		Scanner Scan = new Scanner(System.in);
 		System.out.print("enter name of the person you want to know what he has borrowed : ");
-		try {
-			String name = Scan.nextLine();
-			boolean hh = check(name);
-			if (hh == false) {
-				System.out.println("he isn't a member");
-				return;
-			}
-			for (int j = 0; j < studentbooks2.length; j++) {
-				if (studentbooks2[j] != null) {
-					if (studentbooks2[j].getname().equalsIgnoreCase(name)) {
-						for (int i = 0; i < studentbooks2[j].getbooks().length; i++) {
-							if (studentbooks2[j].getbooks()[i] != null) {
-								System.out.println("he has borrowed : " + studentbooks2[j].getbooks()[i].getbook2());
-							}
+		String name = Scan.nextLine();
+		boolean hh = check(name);
+		if (hh == false) {
+			System.out.println("he isn't a member");
+			return;
+		}
+		for (int j = 0; j < studentbooks2.length; j++) {
+			if (studentbooks2[j] != null) {
+				if (studentbooks2[j].getname().equalsIgnoreCase(name)) {
+					for (int i = 0; i < studentbooks2[j].getbooks().length; i++) {
+						if (studentbooks2[j].getbooks()[i] != null) {
+							System.out.println("he has borrowed : " + studentbooks2[j].getbooks()[i].getbook2());
 						}
 					}
 				}
 			}
-		} catch (Exception e) {
-			System.out.println("invalid input");
 		}
 	}
 
@@ -467,30 +439,26 @@ public class Library {
 		for (int key = 0; key < studentbooks2.length; key++) {
 			System.out.print(studentbooks2[key].getname() + ",");
 		}
-		try {
-			System.out.println();
-			System.out.print("enter name of the person you want to delete : ");
-			String name = Scan.nextLine();
-			for (int i = 0; i < studentbooks2.length; i++) {
-				if (studentbooks2[i] == null) {
-					break;
-				}
-				if (studentbooks2[i].getname().equalsIgnoreCase(name)) {
-					studentbooks2[i] = null;
-					System.out.println("after deleting user");
-					if (studentbooks2[0] == null) {
-						System.out.println("no one has borrowed books in library now");
-					}
-					for (int key = 0; key < studentbooks2.length; key++) {
-						System.out.print(studentbooks2[key].getname() + ",");
-					}
-					return;
-				}
+		System.out.println();
+		System.out.print("enter name of the person you want to delete : ");
+		String name = Scan.nextLine();
+		for (int i = 0; i < studentbooks2.length; i++) {
+			if (studentbooks2[i] == null) {
+				break;
 			}
-			System.out.println("no one with that name");
-		} catch (Exception e) {
-			System.out.println("invalid input");
+			if (studentbooks2[i].getname().equalsIgnoreCase(name)) {
+				studentbooks2[i] = null;
+				System.out.println("after deleting user");
+				if (studentbooks2[0] == null) {
+					System.out.println("no one has borrowed books in library now");
+				}
+				for (int key = 0; key < studentbooks2.length; key++) {
+					System.out.print(studentbooks2[key].getname() + ",");
+				}
+				return;
+			}
 		}
+		System.out.println("no one with that name");
 	}
 
 	@SuppressWarnings("unused")
@@ -509,7 +477,7 @@ public class Library {
 		books[1] = book2;
 		student Student = new student("tark", f);
 		studentbooks2[0] = Student;
-		insertnum();
+		insertnum(y, z);
 		boolean x = true;
 		while (x) {
 			System.out.println(
@@ -517,7 +485,7 @@ public class Library {
 			String choose = Scan.nextLine();
 			if (choose.equalsIgnoreCase("yes")) {
 				Library library2 = new Library(y, z);
-				insertnum();
+				insertnum(y, z);
 			} else {
 				System.out.println("Thank You !");
 				return;
