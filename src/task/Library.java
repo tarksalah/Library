@@ -8,13 +8,11 @@ public class Library {
     private static student[] studentbooks2;
     Library(int booksnum, int studentsnum) {
         @SuppressWarnings("resource")
-        int x=0;
         Scanner Scan = new Scanner(System.in);
         books = new book[booksnum];
         studentbooks2 = new student[studentsnum];
         System.out.print("please enter your name : ");
         username = Scan.nextLine().toLowerCase();
-        System.out.println();
         System.out.println();
     }
     public static void insertnum() {
