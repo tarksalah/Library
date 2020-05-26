@@ -71,12 +71,12 @@ public class Library {
 
 	public static boolean check(String username) {
 		for (int i = 0; i < studentbooks2.length; i++) {
+			if (studentbooks2[i] == null) {
+				break;
+			}
 			String hh = studentbooks2[i].getname();
 			if (hh.equalsIgnoreCase(username)) {
 				return true;
-			}
-			if (studentbooks2[i + 1] == null) {
-				break;
 			}
 		}
 		return false;
@@ -236,7 +236,7 @@ public class Library {
 						System.out.print("before borrowing : ");
 						for (int j = 0; j < books.length; j++) {
 							if (books[j] != null) {
-								System.out.print(books[j].getbook());
+								System.out.println(books[j].getbook());
 							}
 						}
 						System.out.println();
@@ -248,7 +248,7 @@ public class Library {
 						System.out.print("after borrowing : ");
 						for (int j = 0; j < books.length; j++) {
 							if (books[j] != null) {
-								System.out.print(books[j].getbook());
+								System.out.println(books[j].getbook());
 							}
 						}
 						for (int j = 0; j < studentbooks2.length; j++) {
@@ -259,7 +259,7 @@ public class Library {
 									studentbooks2[j].setstudentbooks(Book);
 								}
 							}
-							if (studentbooks2[i].getbooks()[booksnum] != null) {
+							if (studentbooks2[i].getbooks()[booksnum - 1] != null) {
 								System.out.println("you can't take more than " + booksnum + " book");
 								break;
 							}
@@ -268,8 +268,19 @@ public class Library {
 						LocalDateTime now2 = LocalDateTime.now();
 						String h2 = now2.toString();
 						String hh2 = h2.substring(8, 10);
+						String hh3 = h2.substring(5, 7);
 						int ii2 = Integer.parseInt(hh2);
+						int ii3 = Integer.parseInt(hh3);
 						ii2 = ii2 + 14;
+						if (ii2 > 31) {
+							ii2 -= 31;
+							ii3 += 1;
+							String hsa = Integer.toString(ii2);
+							String hsa2 = Integer.toString(ii3);
+							String last = h2.substring(0, 5) + hsa2 + "-" + hsa + " " + h2.substring(11, 19);
+							System.out.println("last date to back the book is " + last);
+							return;
+						}
 						String hsa = Integer.toString(ii2);
 						String last = h2.substring(0, 8) + hsa + " " + h2.substring(11, 19);
 						System.out.println("last date to back the book is " + last);
@@ -425,6 +436,7 @@ public class Library {
 					for (int i = 0; i < studentbooks2[j].getbooks().length; i++) {
 						if (studentbooks2[j].getbooks()[i] != null) {
 							System.out.println("he has borrowed : " + studentbooks2[j].getbooks()[i].getbook2());
+							
 						}
 					}
 				}
@@ -433,11 +445,10 @@ public class Library {
 	}
 
 	public static void deleteuser() {
-		@SuppressWarnings("resource")
 		Scanner Scan = new Scanner(System.in);
 		System.out.print("before deleting user, students in library are : ");
 		for (int key = 0; key < studentbooks2.length; key++) {
-			if (studentbooks2[key]==null) {
+			if (studentbooks2[key] == null) {
 				break;
 			}
 			System.out.print(studentbooks2[key].getname() + ".");
@@ -456,7 +467,7 @@ public class Library {
 					System.out.println("no one has borrowed books in library now");
 				}
 				for (int key = 0; key < studentbooks2.length; key++) {
-					if (studentbooks2[key]==null) {
+					if (studentbooks2[key] == null) {
 						break;
 					}
 					System.out.print(studentbooks2[key].getname() + ".");
@@ -478,7 +489,10 @@ public class Library {
 		book book1 = new book("tark", "1919", 5, "micheal");
 		book book2 = new book("tarok", "1919", 5, "mego");
 		book book3 = new book("lol", "1950", 4, "tark");
-		book[] f = { book1, book2, book3 };
+		book[] f = new book[y];
+		f[0] = book1;
+		f[1] = book2;
+		f[2] = book3;
 		books[0] = book1;
 		books[1] = book2;
 		student Student = new student("tark", f);
@@ -491,7 +505,6 @@ public class Library {
 			Scan.nextLine();
 			String choose = Scan.nextLine();
 			if (choose.equalsIgnoreCase("yes")) {
-				Library library2 = new Library(y, z);
 				insertnum(y, z);
 			} else {
 				System.out.println("Thank You !");
